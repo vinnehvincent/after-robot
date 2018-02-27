@@ -1,0 +1,27 @@
+{
+  "name": "after-robot",
+  "version": "1.0.0",
+  "description": "After Robot Backend : After Robot is a mobile application that helps commuters get to their destination by showing them how to connect from rank to rank.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinnehvincent/after-robot.git"
+  },
+  "keywords": [
+    "taxi",
+    "direction",
+    "location"
+  ],
+  "author": "Vinneh Vincent",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinnehvincent/after-robot/issues"
+  },
+  "homepage": "https://github.com/vinnehvincent/after-robot#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
