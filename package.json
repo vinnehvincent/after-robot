@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/vinnehvincent/after-robot#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongoose": "^5.0.7"
   }
 }
