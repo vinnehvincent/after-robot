@@ -73,7 +73,7 @@ let Location = require('../api/models/locationModel');
                     .end((err,res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
-                        res.should.have.property('_id').eql(location.id);
+                        res.body.should.have.property('_id').eql(location.id);
                         res.body.should.have.property('name').eql('Johanesburg MTN Noord Taxi Rank');
                         res.body.should.have.property('coOrdinates').eql({lat:1.0,lng:1.0});
                         done();
