@@ -3,4 +3,7 @@ module.exports = function(app){
 
     app.route('/location')
         .post(location.create_a_location);
+    
+    app.route('/location/:id')
+        .get(location.find_location_by_id);
 }

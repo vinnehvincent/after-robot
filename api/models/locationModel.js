@@ -5,6 +5,6 @@ var mongoose = require('mongoose'),
 
 var LocationSchema = new Schema({
     name:{type:String, required:true},
-    coOrdinates:{type:{lat:String,lng:String}}
+    coOrdinates:{type:{lat:Number,lng:Number}}
 });
 module.exports=mongoose.model('Location',LocationSchema);

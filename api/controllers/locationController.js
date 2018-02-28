@@ -9,3 +9,10 @@ exports.create_a_location = function(req, res){
         res.json(user);
     });
 }
+exports.find_location_by_id = function(req,res){
+    Location.findById({_id:req.params.id},(err,location) =>{
+        if(err)
+            res.send(err);
+        res.json(location);
+    })
+}
