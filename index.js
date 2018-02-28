@@ -1,17 +1,21 @@
-var express = require('express'),
+//const config = require('./config')();
+let express = require('express'),
      app = express(),
      bodyParser = require('body-parser'),
-     mongoose = require('mongoose');
+     mongoose = require('mongoose'),
      location = require('./api/models/locationModel');
+
 
      mongoose.Promise = global.Promise;
      mongoose.connect('mongodb://localhost/after-robot');
 
      app.use(bodyParser.urlencoded({extended:true}));
      app.use(bodyParser.json());
+     app.use(bodyParser.text());
+     app.use(bodyParser.json({ type: 'application/json'})); 
 
 app.get('/', function(req, res){
-    res.send('Hello Word');
+    res.send('Welcome to after-robot-app\n');
 });
 
 var locationRoutes = require('./api/routes/locationRoutes');
