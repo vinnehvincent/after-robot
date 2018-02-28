@@ -16,3 +16,14 @@ exports.find_location_by_id = function(req,res){
         res.json(location);
     })
 }
+exports.edit_a_location = function(req,res){
+    Location.findById({_id:req.params.id},(err, location) =>{
+        if(err)
+            res.send(err);
+        Object.assign(location, req.body).save((err,location) => {
+            if(err)
+                res.send(err);
+           res.json(location); 
+        });
+    });
+}
