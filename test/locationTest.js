@@ -41,6 +41,25 @@ let Location = require('../api/models/locationModel');
                         done();
                     });
             });
+            it('it should fail to POST location without name',(done) =>{
+                let location ={ 
+                    coOrdinates:{
+                        lat: 0.0,
+                        lng: 0.0
+                    }
+                }
+                chai.request(server)
+                    .post('/location')
+                    .send(location)
+                    .end((err,res) => {
+                        res.should.have.status(200);
+                        res.should.be.a('object');
+                        res.body.should.have.property('errors');
+                        res.body.errors.should.have.property('name');
+                        res.body.errors.name.should.have.property('message').eql('Path `name` is required.');
+                        done();
+                    });
+            });
         }); // /POST location
 
         describe('/GET/:id location', () => {
@@ -81,4 +100,5 @@ let Location = require('../api/models/locationModel');
                 });
             });
         });
+        
     });
