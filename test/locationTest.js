@@ -24,7 +24,7 @@ let Rank = require('../api/models/rankModel');
             it('it should POST a rank', (done) =>{
                 let rank = {
                         name: "Johannesburg MTN Taxi Rank",
-                        coOrdinates: {
+                        location: {
                             lat:0.0,
                             lng:0.0
                         }
@@ -37,13 +37,13 @@ let Rank = require('../api/models/rankModel');
                         res.body.should.be.a('object');
                         res.body.should.have.property('_id');
                         res.body.should.have.property('name').eql(rank.name);
-                        res.body.should.have.property('coOrdinates');
+                        res.body.should.have.property('location');
                         done();
                     });
             });
             it('it should fail to POST rank without name',(done) =>{
                 let rank ={ 
-                    coOrdinates:{
+                    location:{
                         lat: 0.0,
                         lng: 0.0
                     }
@@ -64,7 +64,7 @@ let Rank = require('../api/models/rankModel');
 
         describe('/GET/:id rank', () => {
             it('it should GET a rank', (done) => {
-                let rank = new Rank({name:"Johanesburg MTN Rank", coOrdinates:{lat:0.0,lng:-0.0}});
+                let rank = new Rank({name:"Johanesburg MTN Rank", location:{lat:0.0,lng:-0.0}});
 
                 rank.save((err, rank) =>{
                     chai.request(server)
@@ -74,7 +74,7 @@ let Rank = require('../api/models/rankModel');
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('_id').eql(rank.id);
-                        res.body.should.have.property('coOrdinates');
+                        res.body.should.have.property('location');
                         done();
                     });
                 });
@@ -83,18 +83,18 @@ let Rank = require('../api/models/rankModel');
 
         describe('/PUT/:id rank', () =>{
             it('it should PUT a rank', (done) =>{
-                let rank = new Rank({name:"Johanesburg MTN Rank", coOrdinates:{lat:0.0, lng:-0.0}});
+                let rank = new Rank({name:"Johanesburg MTN Rank", location:{lat:0.0, lng:-0.0}});
 
                 rank.save((err,rank) => {
                     chai.request(server)
                     .put('/rank/' + rank.id)
-                    .send({name:"Johanesburg MTN Noord Taxi Rank", coOrdinates:{lat:1.0,lng:1.0}})
+                    .send({name:"Johanesburg MTN Noord Taxi Rank", location:{lat:1.0,lng:1.0}})
                     .end((err,res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('_id').eql(rank.id);
                         res.body.should.have.property('name').eql('Johanesburg MTN Noord Taxi Rank');
-                        res.body.should.have.property('coOrdinates').eql({lat:1.0,lng:1.0});
+                        res.body.should.have.property('location').eql({lat:1.0,lng:1.0});
                         done();
                     });
                 });
