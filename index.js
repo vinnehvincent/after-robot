@@ -3,7 +3,7 @@ let express = require('express'),
      app = express(),
      bodyParser = require('body-parser'),
      mongoose = require('mongoose'),
-     location = require('./api/models/locationModel');
+     rank = require('./api/models/rankModel');
 
 
      mongoose.Promise = global.Promise;
@@ -18,8 +18,8 @@ app.get('/', function(req, res){
     res.send('Welcome to after-robot-app\n');
 });
 
-var locationRoutes = require('./api/routes/locationRoutes');
-locationRoutes(app);
+var rankRoutes = require('./api/routes/rankRoutes');
+rankRoutes(app);
 
 app.listen(3000, function(){
     console.log('after-robot app listening on port 3000!');
