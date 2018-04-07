@@ -10,6 +10,6 @@ module.exports = function(app){
         .get(rank.find_rank_by_id)
         .put(rank.edit_a_rank);
         
-    app.route('/rank/nearest')
-        .get(rank.find_nearest_rank);
+    // app.route('/rank/nearest')
+    //     .get(rank.find_nearest_rank);
 }

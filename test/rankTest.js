@@ -103,7 +103,7 @@ let Rank = require('../api/models/rankModel');
                     });
                 });
             });
-        }); // /GET:id rank
+        }); // /GET rank
 
         describe('/PUT/:id rank', () =>{
             it('it should PUT a rank', (done) =>{
@@ -125,5 +125,21 @@ let Rank = require('../api/models/rankModel');
                 });
             });
         });
-        
+        describe('/GET with queries', () =>{
+            it('should GET 5 nearest ranks', (done) => {
+                let rank = new Rank({name:"Johanesburg MTN Rank", location:[0.0,0.0]});
+                
+                rank.save((err,rank)=>{
+                    chai.request(server)
+                    .get('/rank/search?lat=0.0&lng=0.0')
+                    .end((err,res) =>{
+                        res.should.have.status(200);
+                        res.body.should.be.a('array');
+                        res.body[0].should.have.property('name').eql(rank.name);
+                        res.body[0].should.have.property('location').eql(rank.location);
+                        done();
+                    })
+                });
+            });
+        })
     });
