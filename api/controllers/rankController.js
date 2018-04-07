@@ -9,6 +9,13 @@ exports.create_rank = function(req, res){
         res.json(user);
     });
 }
+exports.get_all_ranks = function(req,res){
+    Rank.find({},(err,ranks) =>{
+        if(err)
+            res.send(err);
+        res.json(ranks);
+    })
+}
 exports.find_rank_by_id = function(req,res){
     Rank.findById({_id:req.params.id},(err,rank) =>{
         if(err)
@@ -26,4 +33,8 @@ exports.edit_a_rank = function(req,res){
            res.json(rank); 
         });
     });
+}
+exports.find_nearest_rank = function(req,res){
+    //Returns 3 nearest walkable ranks, given a location
+
 }

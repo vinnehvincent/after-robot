@@ -5,6 +5,10 @@ var mongoose = require('mongoose'),
 
 var RankSchema = new Schema({
     name:{type:String, required:true},
-    location:{type:{lat:Number,lng:Number}}
+    location:{
+        type:[Number],
+        index:'2d',
+        required:true
+    }
 });
 module.exports=mongoose.model('Rank',RankSchema);

@@ -24,10 +24,7 @@ let Rank = require('../api/models/rankModel');
             it('it should POST a rank', (done) =>{
                 let rank = {
                         name: "Johannesburg MTN Taxi Rank",
-                        location: {
-                            lat:0.0,
-                            lng:0.0
-                        }
+                        location:[0.0,0.0]
                 }
                 chai.request(server)
                     .post('/rank')
@@ -43,10 +40,7 @@ let Rank = require('../api/models/rankModel');
             });
             it('it should fail to POST rank without name',(done) =>{
                 let rank ={ 
-                    location:{
-                        lat: 0.0,
-                        lng: 0.0
-                    }
+                    location:[0.0,0.0]
                 }
                 chai.request(server)
                     .post('/rank')
@@ -60,11 +54,41 @@ let Rank = require('../api/models/rankModel');
                         done();
                     });
             });
+            it('should fail to POST rank without location',(done)=>{
+                let rank = {
+                    name: "Johannesburg MTN Taxi Rank"
+                }
+                chai.request(server)
+                .post("/rank")
+                .send(rank)
+                .end((err,res)=> {
+                    res.should.have.status(200);
+                    res.should.be.a('object');
+                    res.body.should.have.property('errors');
+                    res.body.errors.should.have.property('location');
+                    res.body.errors.location.should.have.property('message').eql('Path `location` is required.');
+                    done();
+                })
+            });
         }); // /POST rank
-
+        describe('/GET rank',() => {
+            it('it should GET ranks', () =>{
+                let rank = new Rank({name:"Johanesburg MTN Rank", location:[0.0,0.0]});
+                rank.save((err, rank)=>{
+                    chai.request(server)
+                    .get('/rank')
+                    .end((err,res)=>{
+                        res.should.have.status(200);
+                        res.body.should.be.a('array');
+                        res.body[0].should.have.property('name').eql(rank.name);
+                        res.body[0].should.have.property('location').eql(rank.location);
+                    });
+                });
+            });
+        });
         describe('/GET/:id rank', () => {
-            it('it should GET a rank', (done) => {
-                let rank = new Rank({name:"Johanesburg MTN Rank", location:{lat:0.0,lng:-0.0}});
+            it('it should GET a rank given id', (done) => {
+                let rank = new Rank({name:"Johanesburg MTN Rank", location:[0.0,0.0]});
 
                 rank.save((err, rank) =>{
                     chai.request(server)
@@ -83,18 +107,19 @@ let Rank = require('../api/models/rankModel');
 
         describe('/PUT/:id rank', () =>{
             it('it should PUT a rank', (done) =>{
-                let rank = new Rank({name:"Johanesburg MTN Rank", location:{lat:0.0, lng:-0.0}});
+                let rank = new Rank({name:"Johanesburg MTN Rank", location:[0.0,-0.0]});
+                let updatedRank = {name:"Johanesburg MTN Noord Taxi Rank", location:[1.0,1.0]};
 
                 rank.save((err,rank) => {
                     chai.request(server)
                     .put('/rank/' + rank.id)
-                    .send({name:"Johanesburg MTN Noord Taxi Rank", location:{lat:1.0,lng:1.0}})
+                    .send(updatedRank)
                     .end((err,res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('_id').eql(rank.id);
-                        res.body.should.have.property('name').eql('Johanesburg MTN Noord Taxi Rank');
-                        res.body.should.have.property('location').eql({lat:1.0,lng:1.0});
+                        res.body.should.have.property('name').eql(updatedRank.name);
+                        res.body.should.have.property('location').eql(updatedRank.location);
                         done();
                     });
                 });
