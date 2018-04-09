@@ -19,12 +19,21 @@ let Rank = require('../api/models/rankModel');
                 done();
             });
         });
+        // after((done)=>{
+        //     Rank.remove({}, (err) =>{
+        //         done();
+        //     });
+        // });
 
-        describe('/POST rank', () => {
+        describe.only('/POST rank', () => {
             it('it should POST a rank', (done) =>{
                 let rank = {
                         name: "Johannesburg MTN Taxi Rank",
-                        location:[0.0,0.0]
+                        location:[0.0,0.0],
+                        loc:{
+                            type:'Point',
+                            coordinates:[0.0,0.0]
+                        }
                 }
                 chai.request(server)
                     .post('/rank')
@@ -34,7 +43,9 @@ let Rank = require('../api/models/rankModel');
                         res.body.should.be.a('object');
                         res.body.should.have.property('_id');
                         res.body.should.have.property('name').eql(rank.name);
+                        console.log(res.body.name);
                         res.body.should.have.property('location');
+                        res.body.should.have.property('loc');
                         done();
                     });
             });
