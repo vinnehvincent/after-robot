@@ -19,11 +19,11 @@ describe('Rank', () => {
             done();
         });
     });
-    // after((done)=>{
-    //     Rank.remove({}, (err) =>{
-    //         done();
-    //     });
-    // });
+    after((done)=>{
+        Rank.remove({}, (err) =>{
+            done();
+        });
+    });
 
     describe('/POST rank', () => {
         it('it should POST a rank', (done) => {
