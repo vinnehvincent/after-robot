@@ -1,4 +1,4 @@
-//const config = require('./config')();
+const config = require('./config/_config');
 let express = require('express'),
      app = express(),
      bodyParser = require('body-parser'),
@@ -7,7 +7,11 @@ let express = require('express'),
 
 
      mongoose.Promise = global.Promise;
-     mongoose.connect('mongodb://localhost/after-robot');
+     mongoose.connect("mongodb://localhost/after-robot-test",function(err,res){
+         if(err)
+            console.log('Error conneccting to database.\n' + err);
+        console.log('Connected to database: '+config.MongoURI[app.settings.env]);
+     });
 
      app.use(bodyParser.urlencoded({extended:true}));
      app.use(bodyParser.json());

@@ -4,7 +4,7 @@
   "description": "After Robot Backend : After Robot is a mobile application that helps commuters get to their destination by showing them how to connect from rank to rank.",
   "main": "index.js",
   "scripts": {
-    "start": "export NODE_ENV=dev && node index.js",
+    "start": "node index.js",
     "test": "mocha --timeout 10000 --exit "
   },
   "repository": {
