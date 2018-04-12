@@ -3,18 +3,12 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var RankSchema = new Schema({
-    name:{type:String, required:true},
-    location:{
-        type:[Number],
-        index:'2d',
-        required:true
-    },
-    loc:{
+    name: { type: String, required: true },
+    location: {
         type: {type:String},
-        coordinates:[]
+        coordinates: []
     }
-    
 });
 
-RankSchema.index({loc:'2dsphere'});
-module.exports=mongoose.model('Rank',RankSchema);
+RankSchema.index({ location: '2dsphere' });
+module.exports = mongoose.model('Rank', RankSchema);
