@@ -23,8 +23,19 @@ exports.find_rank_by_id = function(req,res){
     
     if(param.id == 'search'){
         let coords = [req.query.lat, req.query.lng];
+        query = {
+            location:{
+                $near:{
+                    $geometry:{
+                        Type: "Point",
+                        coordinates: coords,
+                    },
+                    $maxDistance:1000
+                }
+            }
+        };
         console.log
-        Rank.find({location:{$near:coords}}, (err,ranks) => {
+        Rank.find({location:{$near:{$geometry:{type: "Point",coordinates: coords},$maxDistance:1000,limit:5}}}, (err,ranks) => {
             if(err)
              res.send(err);
             res.json(ranks);

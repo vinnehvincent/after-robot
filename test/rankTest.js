@@ -9,7 +9,7 @@ let chai = require('chai'),
     chaiHttp = require('chai-http'),
     server = require('../index'),
     should = chai.should();
-
+    //to = chai.to();
 
 chai.use(chaiHttp);
 
@@ -138,18 +138,22 @@ describe('Rank', () => {
             });
         });
     }); //PUT rank
-    describe.skip('/GET with queries', () => {
+    describe('/GET with queries', () => {
         it('should GET 5 nearest ranks', (done) => {
-            let rank = new Rank({ name: "Johanesburg MTN Rank", location: [0.0, 0.0] });
+            let rank = new Rank({ name: "Johanesburg MTN Rank", location: {type:"Point", coordinates:[0.0,0.0]} });
+            let anotherRank = new Rank({ name: "Another Rank", location: {type:"Point", coordinates:[0.0,0.0]} });
 
-            rank.save((err, rank) => {
+
+            ((rank,err) => {
                 chai.request(server)
                     .get('/rank/search?lat=0.0&lng=0.0')
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('array');
+                        res.body.should.have.lengthOf(1);
                         res.body[0].should.have.property('name').eql(rank.name);
-                        res.body[0].should.have.property('location').eql(rank.location);
+                        res.body[0].should.have.property('location');
+                        res.body[0].location.should.have.property('coordinates').eql(rank.location.coordinates);
                         done();
                     })
             });
