@@ -138,13 +138,13 @@ describe('Rank', () => {
             });
         });
     }); //PUT rank
-    describe('/GET with queries', () => {
+    describe('/GET search ranks', () => {
         it('should GET 5 nearest ranks', (done) => {
             let rank = new Rank({ name: "Johanesburg MTN Rank", location: {type:"Point", coordinates:[0.0,0.0]} });
             let anotherRank = new Rank({ name: "Another Rank", location: {type:"Point", coordinates:[0.0,0.0]} });
 
 
-            ((rank,err) => {
+            rank.save((err, rank) => {
                 chai.request(server)
                     .get('/rank/search?lat=0.0&lng=0.0')
                     .end((err, res) => {
