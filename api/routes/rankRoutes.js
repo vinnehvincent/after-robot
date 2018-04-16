@@ -7,11 +7,8 @@ module.exports = function(app){
         
     app.route('/rank/search')
         .get(rank.find_nearest_rank);
-        
+
     app.route('/rank/:id')
         .get(rank.find_rank_by_id)
         .put(rank.edit_a_rank);
-        
-    // app.route('/rank/nearest')
-    //     .get(rank.find_nearest_rank);
 }

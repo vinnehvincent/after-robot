@@ -141,8 +141,7 @@ describe('Rank', () => {
     describe('/GET search ranks', () => {
         it('should GET 5 nearest ranks', (done) => {
             let rank = new Rank({ name: "Johanesburg MTN Rank", location: {type:"Point", coordinates:[0.0,0.0]} });
-            let anotherRank = new Rank({ name: "Another Rank", location: {type:"Point", coordinates:[0.0,0.0]} });
-
+           
 
             rank.save((err, rank) => {
                 chai.request(server)
@@ -157,6 +156,24 @@ describe('Rank', () => {
                         done();
                     })
             });
+        });
+
+        it('should not return a rank if more than a kilometre away',(done) =>{
+            
+            let rank = new Rank({ name: "Johanesburg MTN Rank", location: {type:"Point", coordinates:[0.0,0.0]} });
+           
+
+            rank.save((err, rank) => {
+                chai.request(server)
+                    .get('/rank/search?lat=0.0&lng=0.0')
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('array');
+                        res.body.should.have.lengthOf(0);
+                        done();
+                    })
+            });
+
         });
     })
 });
