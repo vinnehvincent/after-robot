@@ -160,7 +160,7 @@ describe('Rank', () => {
 
         it('should not return a rank if more than a kilometre away',(done) =>{
             
-            let rank = new Rank({ name: "Johanesburg MTN Rank", location: {type:"Point", coordinates:[0.0,0.0]} });
+            let rank = new Rank({ name: "Johanesburg MTN Rank", location: {type:"Point", coordinates:[0.009,0.0]} });
            
 
             rank.save((err, rank) => {
