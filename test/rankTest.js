@@ -1,15 +1,12 @@
-//process.env.NODE_ENV = 'test';
-let mongoose = require('mongoose');
-let Rank = require('../api/models/rankModel');
+process.env.NODE_ENV = 'test';
 
-    mongoose.Promise = global.Promise,
-    mongoose.connect('mongodb://localhost/after-robot-test');
+let Rank = require('../api/models/rankModel');
 
 let chai = require('chai'),
     chaiHttp = require('chai-http'),
     server = require('../index'),
     should = chai.should();
-    //to = chai.to();
+    
 
 chai.use(chaiHttp);
 
@@ -65,7 +62,7 @@ describe('Rank', () => {
                     done();
                 });
         });
-        it.skip('should fail to POST rank without location', (done) => {
+        it.skip('it should fail to POST rank without location', (done) => {
             let rank = {
                 name: "Johannesburg MTN Taxi Rank"
             }
@@ -139,7 +136,7 @@ describe('Rank', () => {
         });
     }); //PUT rank
     describe('/GET search ranks', () => {
-        it('should GET 5 nearest ranks', (done) => {
+        it('it should GET 5 nearest ranks', (done) => {
             let rank = new Rank({ name: "Johanesburg MTN Rank", location: {type:"Point", coordinates:[0.0,0.0]} });
            
 
@@ -158,7 +155,7 @@ describe('Rank', () => {
             });
         });
 
-        it('should not return a rank if more than a kilometre away',(done) =>{
+        it('it should not return a rank if more than a kilometre away',(done) =>{
             
             let rank = new Rank({ name: "Johanesburg MTN Rank", location: {type:"Point", coordinates:[0.009,0.0]} });
            

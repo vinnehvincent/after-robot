@@ -7,7 +7,7 @@ let express = require('express'),
 
 
      mongoose.Promise = global.Promise;
-     mongoose.connect("mongodb://localhost/after-robot-test",function(err,res){
+     mongoose.connect(config.MongoURI[app.settings.env],function(err,res){
          if(err)
             console.log('Error conneccting to database.\n' + err);
         console.log('Connected to database: '+config.MongoURI[app.settings.env]);
