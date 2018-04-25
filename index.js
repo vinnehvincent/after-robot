@@ -4,7 +4,7 @@ let express = require('express'),
      bodyParser = require('body-parser'),
      mongoose = require('mongoose'),
      rank = require('./api/models/rankModel');
-
+     user = require('./api/models/userModel');
 
      mongoose.Promise = global.Promise;
      mongoose.connect(config.MongoURI[app.settings.env],function(err,res){
@@ -24,6 +24,8 @@ app.get('/', function(req, res){
 
 var rankRoutes = require('./api/routes/rankRoutes');
 rankRoutes(app);
+var userRoutes = require('./api/routes/userRoutes');
+userRoutes(app);
 
 app.listen(3000, function(){
     console.log('after-robot app listening on port 3000!');

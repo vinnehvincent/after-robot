@@ -1,8 +1,7 @@
-let mongoose =require('mongoose'),
+var mongoose =require('mongoose'),
+    Schema = mongoose.Schema;
 
-Schema = mongoose.Schema;
-
-let UserSchema = new Schema({
+var UserSchema = new Schema({
     email:{type:String,required:true},
     password:{type:String,required:true}
 });
