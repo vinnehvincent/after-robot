@@ -7,4 +7,5 @@ module.exports = function(app){
 
     app.route('/user/:id')
         .get(user.get_user_by_id)
+        .put(user.edit_user);
 }

@@ -18,7 +18,7 @@ describe('User Tests',()=>{
     });
     
     describe("/POST user", ()=>{
-        it('it should post a user',(done)=>{
+        it('it should POST a user',(done)=>{
             let user = {
                 email:"test@example.com",
                 password:"Pwsrd001"
@@ -37,7 +37,7 @@ describe('User Tests',()=>{
         });
     });
     describe("/GET users", ()=>{
-        it('it should get all users', (done)=>{
+        it('it should GET all users', (done)=>{
             let user = new User({
                 email:"test@example.com",
                 password:"Pwsrd001"
@@ -57,7 +57,7 @@ describe('User Tests',()=>{
         });
     });
     describe("/GET/:id user",()=>{
-        it('it should get user by id', (done)=>{
+        it('it should GET user by id', (done)=>{
             let user = new User({
                 email:"test@example.com",
                 password:"Pwsrd001"
@@ -74,4 +74,27 @@ describe('User Tests',()=>{
             });
         });
     });
+    describe("/PUT/:id user", () =>{
+        it('should PUT a user', (done)=>{
+            let user = new User({
+                email:"test@example.com",
+                password:"Pwsrd001"
+            });
+            let newUser = {email:'puttest@exmaple.com',password:"Pswrd002"};
+            user.save((err,user)=>{
+                chai.request(server)
+                    .put('/user/'+user.id)
+                    .send(newUser)
+                    .end((err,res)=>{
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('_id').eql(user.id);
+                        res.body.should.have.property('email').eql(newUser.email);
+                        res.body.should.have.property('password').eql(newUser.password);
+                        done();
+                    });
+            });
+        });  
+
+    })
 });

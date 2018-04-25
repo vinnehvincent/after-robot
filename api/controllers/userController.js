@@ -25,3 +25,15 @@ exports.get_user_by_id = function(req,res){
         res.json(user);
     })
 }
+
+exports.edit_user = function(req,res){
+    User.findById({_id:req.params.id},(err,user)=>{
+        if(err)
+            res.send(err);
+        Object.assign(user,req.body).save((err,user)=>{
+            if(err)
+                res.send(err);
+            res.json(user);
+        })
+    })
+}
