@@ -10,7 +10,7 @@ let chai = require('chai'),
 
 chai.use(chaiHttp);
 
-describe('Rank', () => {
+describe('Rank Tests', () => {
     beforeEach((done) => {
         Rank.remove({}, (err) => {
             done();

@@ -9,7 +9,7 @@ let chai = require('chai'),
 let chaiHttp = require('chai-http');
     chai.use(chaiHttp);
 
-describe('User',()=>{
+describe('User Tests',()=>{
 
     afterEach((done)=>{
         User.remove({}, (err)=>{
@@ -17,7 +17,7 @@ describe('User',()=>{
         });
     });
     
-    describe("/POST rank", ()=>{
+    describe("/POST user", ()=>{
         it('it should post a user',(done)=>{
             let user = {
                 email:"test@example.com",
@@ -36,5 +36,24 @@ describe('User',()=>{
             
         });
     });
-    
+    describe("/GET user", ()=>{
+        it('it should get all users', (done)=>{
+            let user = new User({
+                email:"test@example.com",
+                password:"Pwsrd001"
+            });
+            user.save((err, user_)=>{
+                chai.request(server)
+                .get('/user')
+                .end((err,res)=>{
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.should.have.lengthOf(1);
+                    res.body[0].should.have.property('_id');
+                    done();
+                });
+            });
+            
+        });
+    })
 });
