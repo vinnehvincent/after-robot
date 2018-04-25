@@ -36,7 +36,7 @@ describe('User Tests',()=>{
             
         });
     });
-    describe("/GET user", ()=>{
+    describe("/GET users", ()=>{
         it('it should get all users', (done)=>{
             let user = new User({
                 email:"test@example.com",
@@ -55,5 +55,23 @@ describe('User Tests',()=>{
             });
             
         });
-    })
+    });
+    describe("/GET/:id user",()=>{
+        it('it should get user by id', (done)=>{
+            let user = new User({
+                email:"test@example.com",
+                password:"Pwsrd001"
+            });
+            user.save((err,user)=>{
+                chai.request(server)
+                    .get('/user/'+user.id)
+                    .end((err,res)=>{
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('_id').eql(user.id);
+                        done();
+                    });
+            });
+        });
+    });
 });

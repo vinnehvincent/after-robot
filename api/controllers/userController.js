@@ -17,3 +17,11 @@ exports.get_all_users = function(req,res){
         res.json(users);
     });
 };
+
+exports.get_user_by_id = function(req,res){
+    User.findById({_id:req.params.id},(err,user)=>{
+        if(err)
+            res.send(err);
+        res.json(user);
+    })
+}
