@@ -4,7 +4,8 @@
   "description": "After Robot Backend : After Robot is a mobile application that helps commuters get to their destination by showing them how to connect from rank to rank.",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "start": "node index.js",
+    "test": "mocha --timeout 10000 --exit "
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,13 @@
   },
   "homepage": "https://github.com/vinnehvincent/after-robot#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongoose": "^5.0.7",
+    "npm": "^5.8.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^5.0.1"
   }
 }
