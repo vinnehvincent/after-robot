@@ -3,6 +3,8 @@ language: node_js
 cache:
   directories:
     - npm_modules
+services:
+  - mongodb
 script:
   - npm install
   - npm test
